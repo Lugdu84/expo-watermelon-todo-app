@@ -90,3 +90,5 @@ Dans le .gitignore, pensez bien à rajouter les deux dossiers qui seront génér
 /android
 /ios
 ```
+
+## Configuration de WatermelonDB
