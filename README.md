@@ -1,50 +1,92 @@
-# Welcome to your Expo app 👋
+# My Ideas, Expo et watermelonDB, local first 👋
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+## Création du projet
 
-## Get started
+Création et préparation du projet
 
-1. Install dependencies
-
-   ```bash
-   npm install
-   ```
-
-2. Start the app
-
-   ```bash
-    npx expo start
-   ```
-
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
+```bash
+npm create-expo-app@latest
+```
 
 ```bash
 npm run reset-project
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+```bash
+cd my-ideas
+code .
+```
 
-## Learn more
+## Installation de watermelonDB
 
-To learn more about developing your project with Expo, look at the following resources:
+```bash
+npm install @nozbe/watermelondb
+```
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+```bash
+npx expo install expo-build-properties
+```
 
-## Join the community
+```bash
+npm install -D @babel/plugin-proposal-decorators
+```
 
-Join our community of developers creating universal apps.
+```tsx
+plugins: [['@babel/plugin-proposal-decorators', { legacy: true }]],
+```
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+(bagel.config.js)
+
+```tsx
+{
+  "expo": {
+    "plugins": [
+      [
+        "expo-build-properties",
+        {
+          "ios": {
+            "extraPods": [
+              {
+                "name": "simdjson",
+                "configurations": ["Debug", "Release"],
+                "path": "../node_modules/@nozbe/simdjson",
+                "modular_headers": true
+              }
+            ]
+          }
+        }
+      ]
+    ]
+  }
+}
+```
+
+(app.json)
+
+```tsx
+"experimentalDecorators": true
+```
+
+(tsconfig.json => compilerOptions)
+
+## developpement build
+
+Pour utiliser watermelonDB, nous aurons besoin de sortir d'Expo Go et d'utiliser un build de développement.
+
+```bash
+npx expo prebuild
+```
+
+ou
+
+```bash
+npx expo run:ios
+npx expo run:android
+```
+
+Dans le .gitignore, pensez bien à rajouter les deux dossiers qui seront générés par le prebuild :
+
+```bash
+/android
+/ios
+```
