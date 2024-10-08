@@ -28,7 +28,7 @@ export default function AddView({ onAdd, placeholder }: AddViewProps) {
 					disabled={!text}
 					onPress={handleAdd}
 					style={styles.buttonAdd}>
-					0<Text>Ajouter</Text>
+					<Text>Ajouter</Text>
 				</Pressable>
 			)}
 		</View>
