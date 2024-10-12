@@ -1,10 +1,13 @@
 import AddView from '@/components/AddView';
 import ListCardView from '@/components/ListCardView';
+import { addTaskList } from '@/database/functions/task-lists';
 import { StyleSheet, FlatList, Text } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-export default function Index() {
-	const handleAdd = (text: string) => {};
+export default function HomeScreen() {
+	const handleAdd = async (text: string) => {
+		await addTaskList(text);
+	};
 	return (
 		<SafeAreaView style={styles.container}>
 			<AddView
