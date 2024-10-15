@@ -1,13 +1,35 @@
 import AddView from '@/components/AddView';
 import ListCardView from '@/components/ListCardView';
-import { addTaskList } from '@/database/functions/task-lists';
-import { StyleSheet, FlatList, Text } from 'react-native';
+import { resetDB } from '@/database/database';
+import { addTaskList, getTaskLists } from '@/database/functions/task-lists';
+import TaskList from '@/database/model/TaskList';
+import { useEffect, useState } from 'react';
+import { StyleSheet, FlatList, Text, Button } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function HomeScreen() {
+	const [taskLists, setTaskLists] = useState<TaskList[]>([]);
 	const handleAdd = async (text: string) => {
-		await addTaskList(text);
+		const newTaskList = await addTaskList(text);
+		// setTaskLists(
+		// 	[...taskLists, newTaskList].sort((a, b) => a.name.localeCompare(b.name))
+		// );
+		fetchTaskLists();
 	};
+
+	const handleResetDB = async () => {
+		await resetDB();
+	};
+
+	useEffect(() => {
+		fetchTaskLists();
+	}, []);
+
+	const fetchTaskLists = async () => {
+		const taskLists = await getTaskLists();
+		setTaskLists(taskLists);
+	};
+
 	return (
 		<SafeAreaView style={styles.container}>
 			<AddView
@@ -17,9 +39,13 @@ export default function HomeScreen() {
 			<FlatList
 				contentContainerStyle={{ gap: 10 }}
 				ListEmptyComponent={<Text>Ajouter votre premier liste ...</Text>}
-				data={null}
+				data={taskLists}
 				keyExtractor={(item) => item.id}
 				renderItem={({ item }) => <ListCardView list={item} />}
+			/>
+			<Button
+				title="Reset DB"
+				onPress={handleResetDB}
 			/>
 		</SafeAreaView>
 	);

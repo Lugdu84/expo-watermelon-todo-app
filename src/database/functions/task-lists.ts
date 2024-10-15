@@ -1,13 +1,24 @@
 import { database } from '@database/database';
 import TaskList from '@database/model/TaskList';
+import { Q } from '@nozbe/watermelondb';
 
 export const addTaskList = async (name: string) => {
-	await database.write(async () => {
+	const newTaskList = await database.write(async () => {
 		const newTaskList = await database
 			.get<TaskList>('task_lists')
 			.create((taskList) => {
 				taskList.name = name;
 			});
-		console.log('new task list', newTaskList._raw);
+		return newTaskList;
 	});
+	return newTaskList;
+};
+
+export const getTaskLists = async () => {
+	const taskLists = await database.collections
+		.get<TaskList>('task_lists')
+		.query(Q.sortBy('name'))
+		.fetch();
+
+	return taskLists;
 };
