@@ -1,14 +1,15 @@
 import { View, Text, StyleSheet } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
+import TaskList from '@/database/model/TaskList';
 
 type ListCardViewProps = {
-	list: any;
+	list: TaskList;
 };
 
 export default function ListCardView({ list }: ListCardViewProps) {
 	return (
 		<View style={styles.rowCardContainer}>
-			<Text>Nom de la liste</Text>
+			<Text>{list.name}</Text>
 			<AntDesign
 				name="right"
 				size={20}

@@ -27,3 +27,9 @@ export const database = new Database({
 	adapter,
 	modelClasses: [TaskList],
 });
+
+export const resetDB = async () => {
+	await database.write(async () => {
+		await database.unsafeResetDatabase();
+	});
+};
