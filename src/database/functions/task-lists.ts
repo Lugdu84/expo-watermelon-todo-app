@@ -14,11 +14,6 @@ export const addTaskList = async (name: string) => {
 	return newTaskList;
 };
 
-export const getTaskLists = async () => {
-	const taskLists = await database.collections
-		.get<TaskList>('task_lists')
-		.query(Q.sortBy('name'))
-		.fetch();
-
-	return taskLists;
+export const getTaskLists = () => {
+	return database.get<TaskList>('task_lists').query(Q.sortBy('name')).observe();
 };
