@@ -1,4 +1,4 @@
-import { View, Text, FlatList } from 'react-native';
+import { Text, FlatList } from 'react-native';
 import React from 'react';
 import ListCardView from './ListCardView';
 import TaskList from '@/database/model/TaskList';

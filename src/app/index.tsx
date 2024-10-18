@@ -1,11 +1,8 @@
 import AddView from '@/components/AddView';
-import ListCardView from '@/components/ListCardView';
 import ListOfTaskListsView from '@/components/ListOfTaskListsView';
 import { resetDB } from '@/database/database';
-import { addTaskList, getTaskLists } from '@/database/functions/task-lists';
-import TaskList from '@/database/model/TaskList';
-import { useEffect, useState } from 'react';
-import { StyleSheet, FlatList, Text, Button } from 'react-native';
+import { addTaskList } from '@/database/functions/task-lists';
+import { StyleSheet, Button } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function HomeScreen() {
