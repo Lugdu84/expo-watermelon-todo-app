@@ -17,3 +17,10 @@ export const addTaskList = async (name: string) => {
 export const getTaskLists = () => {
 	return database.get<TaskList>('task_lists').query(Q.sortBy('name')).observe();
 };
+
+export const deleteTaskList = (id: string) => {
+	database.write(async () => {
+		const taskList = await database.get<TaskList>('task_lists').find(id);
+		await taskList.destroyPermanently();
+	});
+};
