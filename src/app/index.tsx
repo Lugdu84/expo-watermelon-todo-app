@@ -3,6 +3,7 @@ import ListOfTaskListsView from '@/components/ListOfTaskListsView';
 import { resetDB } from '@/database/database';
 import { addTaskList } from '@/database/functions/task-lists';
 import { StyleSheet, Button } from 'react-native';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function HomeScreen() {
@@ -15,7 +16,7 @@ export default function HomeScreen() {
 	};
 
 	return (
-		<SafeAreaView style={styles.container}>
+		<GestureHandlerRootView style={styles.container}>
 			<AddView
 				onAdd={handleAdd}
 				placeholder="Ajouter une liste"
@@ -25,7 +26,7 @@ export default function HomeScreen() {
 				title="Reset DB"
 				onPress={handleResetDB}
 			/>
-		</SafeAreaView>
+		</GestureHandlerRootView>
 	);
 }
 
